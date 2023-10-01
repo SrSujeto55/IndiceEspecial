@@ -2,6 +2,7 @@ import java.util.List;
 
 public class buscadorIndices {
     //Colores :DDDDDDDDDD
+    // Solo son colores :D
     private static final String ANSI_YELLOW = "\u001B[33m";
     private static final String ANSI_RED = "\u001B[31m";
     private static final String ANSI_BLUE = "\u001B[34m";
@@ -21,11 +22,18 @@ public class buscadorIndices {
         this.color = color;
     }
 
+    /**
+     * Método privado para imprimir en pantalla la sección sobre la que se está trabajando 
+     * en ese preciso momento para hacer más gráfico el proceso
+     * FUNCIONA SOLO PARA ARREGLOS
+     * @param inicio indice de inicio
+     * @param fin indice de final
+     */
     private void printArrSection(int inicio, int fin){
         String section = "[";
         int mid = (int) Math.floor((inicio + fin)/2);
 
-        if(color){
+        if(color){// Si usamos colore
             for(int i = inicio; i<=fin; i++){
                 if(i == mid){
                     section += ANSI_YELLOW + printableArr[i] + ANSI_RESET + ", "; // coloreamos de amarillo el medio del arreglo
@@ -33,7 +41,7 @@ public class buscadorIndices {
                     section += printableArr[i] + ", ";
                 }
             }
-        }else{
+        }else{// No usamos color
             for(int i = inicio; i<=fin; i++){
                 section += printableArr[i] + ", ";
             }
@@ -43,11 +51,18 @@ public class buscadorIndices {
         System.out.printf("Espacio de búsqueda it %d: %s \n", iteraciones, section);
     }
 
+    /**
+     * Método privado para imprimir en pantalla la sección sobre la que se está trabajando 
+     * en ese preciso momento para hacer más gráfico el proceso
+     * FUNCIONA SOLO PARA LISTAS
+     * @param inicio indice de inicio
+     * @param fin indice de final
+     */
     private void printLstSection(int inicio, int fin){
         String section = "<";
         int mid = (int) Math.floor((inicio + fin)/2);
 
-        if(color){
+        if(color){// Si usamos color
             for(int i = inicio; i<=fin; i++){
                 if(i == mid){
                     section += ANSI_YELLOW + printableList.get(i) + ANSI_RESET + ", "; // coloreamos de amarillo el medio del arreglo
@@ -55,7 +70,7 @@ public class buscadorIndices {
                     section += printableList.get(i) + ", ";
                 }
             }
-        }else{
+        }else{// No usamos color
             for(int i = inicio; i<=fin; i++){
                 section += printableList.get(i) + ", ";
             }
@@ -65,7 +80,13 @@ public class buscadorIndices {
         System.out.printf("Espacio de búsqueda it %d: %s \n", iteraciones, section);
     }
 
-
+    /**
+     * Método público que resuelve el problema de encontrar el 
+     * índice especial si es que éste existe
+     * Trabaja únicamente con arreglos
+     * @param array El arreglo sobre el que vamos a trabajar
+     * @return un texto que nos dice si existe dicho índice especial o no.
+     */
     public String indiceEspecialARR(int[] array){
         iteraciones = 0;
         this.printableArr = array;
@@ -91,19 +112,29 @@ public class buscadorIndices {
         }
 
         if(especial != -1){
-            if(color){
+            if(color){ //no usamos color
                 s = ANSI_YELLOW + "Elemento encontrado: " + especial + ANSI_RESET;
-            }else{
+            }else{ //no usamos color
                 s = "Elemento encontrado: " + especial;
             }
             return s;
         }else{
-            s = "Ningún elemento cumple con condición";
+             if(color){//usamos color
+                s = ANSI_RED + "Ningún elemento cumple con condición" + ANSI_RESET;
+            }else{//no usamos color
+                s = "Ningún elemento cumple con condición";
+            }
             return s;
         }
     }
 
-    
+    /**
+     * Método público que resuelve el problema de encontrar el 
+     * índice especial si es que éste existe
+     * Trabaja únicamente con listas
+     * @param list La lista sobre la que vamos a trabajar
+     * @return un texto que nos dice si existe dicho índice especial o no.
+     */
     public String indiceEspecialLST(List<Integer> list){
         iteraciones = 0;
         this.printableList = list;
@@ -129,22 +160,27 @@ public class buscadorIndices {
         }
 
         if(especial != -1){
-            if(color){
+            if(color){//usamos color
                 s = ANSI_YELLOW + "Elemento encontrado: " + especial + ANSI_RESET;
-            }else{
+            }else{//no usamos color
                 s = "Elemento encontrado: " + especial;
             }
             return s;
         }else{
-            if(color){
+            if(color){//usamos color
                 s = ANSI_RED + "Ningún elemento cumple con condición" + ANSI_RESET;
-            }else{
+            }else{//no usamos color
                 s = "Ningún elemento cumple con condición";
             }
             return s;
         }
     }
 
+    /**
+     * Método para conseguir en texto el número de iteraciones 
+     * que nos tomó determinar si el problema tiene un índice especial o no
+     * @return texto con total de iteracioens
+     */
     public String getIteracionesText(){
         if(color){
             return ANSI_BLUE + "total de iteraciones: "+ iteraciones + ANSI_RESET;

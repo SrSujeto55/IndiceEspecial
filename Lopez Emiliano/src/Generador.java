@@ -3,16 +3,29 @@ import java.io.FileWriter;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Clase pública para crear archivos con ejemplares aleatorios
+ * se debe usar solo para el manejo de errores
+ */
 public class Generador {
+    // Atributos de clase :D
     private int numeros = (int) (Math.random() * 10 + 5);
     private Set<Integer> conjunto = new HashSet<Integer>();
     private String path;
     private String ejemplar = "";
 
+    /**
+     * Constructor de clase
+     * @param path asigna la ruta pasada por parámetros a la ruta de atributos de clase
+     */
     public Generador(String path){
         this.path = path;
     }
 
+    /**
+     * Método público para crear o llenar el archivo designado con un ejemplar 
+     * válido para realizar IndiceEspecial
+     */
     public void escribe(){
         try {
             File file = new File(path);

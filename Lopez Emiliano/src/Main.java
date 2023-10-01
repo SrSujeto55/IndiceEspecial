@@ -7,9 +7,9 @@ public class Main {
     }
     
     public static void main(String[] args) {
-        boolean flagC = false;
+        boolean flagC = false; // Decidimos si se usará o no colores dentro de la terminal
         boolean flagTipo = false; // Decidimos entre el uso de arreglos o listas, por default usaremos listas
-        buscadorIndices bi;
+        buscadorIndices bi; 
         //Manejo de errores de terminal
         if(args.length > 2){
             uso();
@@ -29,7 +29,7 @@ public class Main {
             }
             
         }
-        
+
         if(flagC){
             bi = new buscadorIndices(true);
         }else{
@@ -38,6 +38,7 @@ public class Main {
 
         Lector lector = new Lector("Ejemplar.txt");
 
+        // Manejamos mediante el uso de flagTipo el tipo de estructura que se usará entre Lista y Arreglo
         if(flagTipo){
             int[] arr = lector.instanceToArr();
             System.out.println(bi.indiceEspecialARR(arr));
