@@ -1,29 +1,51 @@
-// import java.util.concurrent.Semaphore;
+import java.util.List;
 
 public class Main {
+    public static void uso(){
+        System.out.println("Uso: java Main <-l | -a> <-c | > \n (-l List) \n (-a Array) \n (Opcional: -c)");
+        System.exit(0);
+    }
     
     public static void main(String[] args) {
+        boolean flagC = false;
+        boolean flagTipo = false; // Decidimos entre el uso de arreglos o listas, por default usaremos listas
+        buscadorIndices bi;
+        //Manejo de errores de terminal
+        if(args.length > 2){
+            uso();
+        }
 
-        // Semaphore semaph = new Semaphore(2); Semaforo para después
-        buscadorIndices bs = new buscadorIndices();
+        //Manejo de bandera color en terminal
+        if(args.length == 2){
+            flagC = args[1].equals("-c");
+        }
+
+        // Si se usa la bandera -a, el valor será true y por ende usaremos arrays
+        // por default usaremos false: list
+        if(args.length > 0){
+            flagTipo = args[0].equals("-a");
+            if(!flagC){
+              flagC = args[0].equals("-c");  
+            }
+            
+        }
+        
+        if(flagC){
+            bi = new buscadorIndices(true);
+        }else{
+            bi = new buscadorIndices(false);
+        }
+
         Lector lector = new Lector("Ejemplar.txt");
 
-        //todo Crear hilos de ejecución para acelerar procesos
-        // Se crea el hilo
-        // Thread hilo = new Thread(new Runnable() {
-        //     @Override
-        //     public void run() {
-        //         // Se llama a la función
-        //         System.out.println("El indice es: " + indicEspecial(arr, 0, arr.length - 1));
-        //     }
-        // });
-        // hilo.start();
-
-        int[] arr = lector.getInstanceArr();
-            for(int i = 0; i < arr.length; i++){
-                System.out.print(arr[i] + " ");
-            }
-        System.out.println(bs.indiceEspecialARR(arr));
-        
+        if(flagTipo){
+            int[] arr = lector.instanceToArr();
+            System.out.println(bi.indiceEspecialARR(arr));
+            System.out.println(bi.getIteracionesText());
+        }else{
+            List<Integer> list = lector.instanceToList();
+            System.out.println(bi.indiceEspecialLST(list));
+            System.out.println(bi.getIteracionesText());
+        }
     }
 }
