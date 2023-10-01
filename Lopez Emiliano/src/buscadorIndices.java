@@ -19,6 +19,11 @@ public class buscadorIndices {
             else
                 inicio = mid + 1;
         }
+        //todo arreglar el caso donde el elemento especial es la última iteracion, puede ser como estamos tomando el subarreglo
+        // if(array[mid] == mid){
+        //         especial = mid;
+        // }
+
         if(especial != -1){
             s = "Elemento encontrado: " + especial;
             return s;
